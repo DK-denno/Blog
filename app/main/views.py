@@ -1,6 +1,7 @@
 from . import main
 from flask import render_template
+from ..models import User
 
-@main.route('/',methods=['GET','POST'])
+@main.route('/')
 def index():
     return render_template('index.html')
