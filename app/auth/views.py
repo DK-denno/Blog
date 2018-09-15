@@ -16,7 +16,7 @@ def signup():
 
         db.session.add(users)
         db.session.commit()
-        mail_message("Welcome to pitches","email/welcome_user",users.email,user=user)
+        mail_message("Welcome to blog","email/welcome_user",users.email,user=user)
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html', signup=register)
