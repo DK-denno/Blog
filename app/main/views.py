@@ -2,7 +2,7 @@ from . import main
 from .. import db
 from flask import render_template,url_for,redirect
 from ..models import User,Subscribers,Blogposts
-from .forms import Subscribe,Blog
+from .forms import Subscribe,Blog,Comment
 from ..email import mail_message
 
 @main.route('/',methods=['GET','POST'])
@@ -29,5 +29,6 @@ def post():
 @main.route('/post/<id>')
 def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
-    return render_template('fullblog.html',full_blog=full_blog)
+    comment = Comment()
+    return render_template('fullblog.html',comment=comment,full_blog=full_blog)
 
