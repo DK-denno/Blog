@@ -31,10 +31,10 @@ def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
     commenting = Comment()
     if commenting.validate_on_submit():
-        comm = Comments(comment=commenting.comment.data,blog_id=id)
+        comm = Comments(comment=commenting.comment.data,blog_id=id,username=commenting.username.data)
        
         db.session.add(comm)
         db.session.commit()
-    username=commenting.username.data
+    
     return render_template('fullblog.html',username=username,comment=commenting,full_blog=full_blog)
 
