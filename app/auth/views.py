@@ -10,13 +10,12 @@ from ..email import mail_message
 def signup():
     register = Signup()
     if register.validate_on_submit():
-        user = User.query.filter_by(user_name=register.Username.data).first()
         users = User(user_name=register.Username.data,
                      email=register.Email.data, password=register.Password.data)
 
         db.session.add(users)
         db.session.commit()
-        mail_message("Welcome to blog","email/welcome_user",users.email,user=user)
+        mail_message("Welcome to watchlist","email/welcome_user",users.email,user=users)
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html', signup=register)
