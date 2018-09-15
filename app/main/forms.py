@@ -15,6 +15,9 @@ class Blog(FlaskForm):
     submit = SubmitField('POST')
  
 class Comment(FlaskForm):
-    comment = StringField(render_kw={"placeholder":"comment"},validators=[Required()])
     username = StringField(render_kw={"placeholder":"username"},validators=[Required()])
+    comment = StringField(render_kw={"placeholder":"comment"},validators=[Required()])
     submit = SubmitField('POST')
+
+class Delete(FlaskForm): 
+    submit=SubmitField("DEL")

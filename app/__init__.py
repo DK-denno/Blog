@@ -4,7 +4,10 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_uploads import UploadSet,configure_uploads,IMAGES
 
+
+photos = UploadSet('photos',IMAGES)
 mail = Mail()
 db=SQLAlchemy()
 login_manager = LoginManager()
@@ -23,7 +26,8 @@ def create_app(config_name):
     app.config.from_object(config_options[config_name])
     app.config.from_object(Config)
 
-
+    # configure UploadSet
+    configure_uploads(app,photos)
     #importing and initialsing the auth blueprint
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix='/auth')

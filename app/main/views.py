@@ -1,9 +1,10 @@
 from . import main
-from .. import db
-from flask import render_template,url_for,redirect
+from .. import db,photos
+from flask import render_template,url_for,redirect,request
 from ..models import User,Subscribers,Blogposts,Comments
-from .forms import Subscribe,Blog,Comment
+from .forms import Subscribe,Blog,Comment,Delete
 from ..email import mail_message
+from flask_login import login_required
 
 @main.route('/',methods=['GET','POST'])
 def index():
@@ -18,23 +19,25 @@ def index():
 
 @main.route('/blog',methods=['GET','POST'])
 def post():
+  
     blog =Blog()
     if blog.validate_on_submit():
         blogs = Blogposts(title=blog.title.data,summary=blog.summary.data,post=blog.post.data)
         db.session.add(blogs)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        
     return render_template('blogform.html',blog=blog)
 
 @main.route('/post/<id>',methods=['GET','POST'])
 def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
     commenting = Comment()
+    delete = Delete()
+
     if commenting.validate_on_submit():
         comm = Comments(comment=commenting.comment.data,blog_id=id,username=commenting.username.data)
        
         db.session.add(comm)
         db.session.commit()
-    
-    return render_template('fullblog.html',username=username,comment=commenting,full_blog=full_blog)
-
+    commnents = Comments.query.filter_by(blog_id=id)
+    return render_template('fullblog.html',delete=delete,comment=commenting,comm=commnents,full_blog=full_blog)
