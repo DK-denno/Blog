@@ -11,7 +11,7 @@ class Signup(FlaskForm):
     submit = SubmitField('SIGN IN')
 
     def validate_new_account(self,data_field):
-         def validate_email(self,data_field):
+        def validate_email(self,data_field):
             if User.query.filter_by(Email =data_field.data).first():
                 raise ValidationError('There is an account with that email')
 
