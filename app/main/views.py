@@ -26,3 +26,8 @@ def post():
         return redirect(url_for('main.index'))
     return render_template('blogform.html',blog=blog)
 
+@main.route('/post/<id>')
+def full_blog(id):
+    full_blog = Blogposts.query.filter_by(id=id)
+    return render_template('fullblog.html',full_blog=full_blog)
+

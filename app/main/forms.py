@@ -13,3 +13,7 @@ class Blog(FlaskForm):
     summary = StringField('SUMMARY',validators=[Required()])
     post = StringField('BLOG',validators=[Required()])
     submit = SubmitField('POST')
+ 
+ class Comment(FlaskForm):
+    comment = StringField(render_kw={"placeholder":"comment"},validators=[Required()])
+    username = StringField(render_kw={"placeholder":"username"},validators=[Required()])
