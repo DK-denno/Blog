@@ -43,7 +43,6 @@ class Comments(UserMixin,db.Model):
 
 class subscribers(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    email = db.Coulumn(db.String(255))
+    email = db.Column(db.String(255))
     username = db.Column(db.String(255))
     comment = db.relationship('Comments',backref='comment',lazy="dynamic")
-    

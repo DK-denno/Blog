@@ -11,6 +11,5 @@ def index():
 @main.route('/blog',methods=['GET','POST'])
 def post():
     blog =Blog()
-    if blog.validate_on_submit():
-        post = 
-   
+    return render_template('blogform.html',blog=blog)
+
