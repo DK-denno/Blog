@@ -3,7 +3,7 @@ from flask import render_template
 from ..models import User
 from .forms import Subscribe,Blog
 
-@main.route('/')
+@main.route('/',methods=['GET','POST'])
 def index():
     blog =Blog()
     subscribe=Subscribe()

@@ -7,4 +7,7 @@ class Subscribe(FlaskForm):
     submit = SubmitField('SUBSCRIBE')
 
 class Blog(FlaskForm):
-    post = TextAreaField(render_kw={"placeholder":"you@gmail.com"},validators=[Required()])
+    title = StringField('TITLE',validators=[Required()])
+    summary = StringField('SUMMARY',validators=[Required()])
+    post = StringField('BLOG',validators=[Required()])
+    submit = SubmitField('POST')
