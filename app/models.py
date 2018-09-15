@@ -42,6 +42,7 @@ class Comments(UserMixin,db.Model):
 
     id =db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.String(10000))
+    username=db.Column(db.String(255))
     blog_id=db.Column(db.Integer,db.ForeignKey('blogposts.id'))
 
 class Subscribers(UserMixin,db.Model):

@@ -1,7 +1,7 @@
 from . import main
 from .. import db
 from flask import render_template,url_for,redirect
-from ..models import User,Subscribers,Blogposts
+from ..models import User,Subscribers,Blogposts,Comments
 from .forms import Subscribe,Blog,Comment
 from ..email import mail_message
 
@@ -26,9 +26,15 @@ def post():
         return redirect(url_for('main.index'))
     return render_template('blogform.html',blog=blog)
 
-@main.route('/post/<id>')
+@main.route('/post/<id>',methods=['GET','POST'])
 def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
-    comment = Comment()
-    return render_template('fullblog.html',comment=comment,full_blog=full_blog)
+    commenting = Comment()
+    if commenting.validate_on_submit():
+        comm = Comments(comment=commenting.comment.data,blog_id=id)
+       
+        db.session.add(comm)
+        db.session.commit()
+    username=commenting.username.data
+    return render_template('fullblog.html',username=username,comment=commenting,full_blog=full_blog)
 
