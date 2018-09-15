@@ -5,7 +5,12 @@ from .forms import Subscribe,Blog
 
 @main.route('/',methods=['GET','POST'])
 def index():
-    blog =Blog()
     subscribe=Subscribe()
-    return render_template('index.html',blog=blog,subscribe=subscribe)
+    return render_template('index.html',subscribe=subscribe)
 
+@main.route('/blog',methods=['GET','POST'])
+def post():
+    blog =Blog()
+    if blog.validate_on_submit():
+        post = 
+   
