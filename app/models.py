@@ -27,3 +27,15 @@ class User(UserMixin,db.Model):
     def load_user(id):
        return User.query.get(int(id))
 
+class Blogposts(UserMixin,db.Model):
+    __tablename__= 'blogposts'
+    id =db.Column(db.Integer,primary_key=True)
+    title=db.column(db.String(1000))
+    post=db.column(db.String(1000000))
+    
+
+class Comments(UserMixin,db.Model):
+    __tablename__ = 'comments'
+    id =db.Column(db.Integer,primary_key=True)
+    comment=db.Column(db.String(10000))
+    blog_id=db.Column(db.Integer,db.ForeignKey('blogposts.id'))

@@ -1,21 +1,21 @@
 from . import auth
 from .. import db
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,flash
 from .forms import Signup, Login
 from ..models import User
 from flask_login import login_user,current_user
-from ..email import mail_message
+
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     register = Signup()
     if register.validate_on_submit():
-        users = User(user_name=register.Username.data,
+        user = User(user_name=register.Username.data,
                      email=register.Email.data, password=register.Password.data)
-
-        db.session.add(users)
+        
+        db.session.add(user)
         db.session.commit()
-        mail_message("Welcome to watchlist","email/welcome_user",users.email,user=users)
+       
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html', signup=register)
