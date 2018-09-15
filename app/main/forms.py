@@ -3,7 +3,9 @@ from wtforms import StringField,SubmitField,TextAreaField,TextField,BooleanField
 from wtforms.validators import Required,Email,EqualTo
 
 class Subscribe(FlaskForm):
-    Email = StringField(render_kw={"placeholder":"you@gmail.com"},validators=[Required(),Email()])
+    email = StringField(render_kw={"placeholder":"you@gmail.com"},validators=[Required(),Email()])
+    username = StringField(render_kw={"placeholder":"username"},validators=[Required()])
+
     submit = SubmitField('SUBSCRIBE')
 
 class Blog(FlaskForm):

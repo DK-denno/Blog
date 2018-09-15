@@ -2,6 +2,13 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
+<div class="col-md-5">
+    {% for post in bloggs %}
+        {{post.title}}
+        {{post.summary}}
+        
+    {% endfor %}
+</div>
 <div class='col-md-5' style="margin-left: 200px; ">
 {{ wtf.quick_form(subscribe) }}
 </div>

@@ -29,20 +29,23 @@ class User(UserMixin,db.Model):
 
 class Blogposts(UserMixin,db.Model):
     __tablename__= 'blogposts'
+
     id =db.Column(db.Integer,primary_key=True)
-    title=db.column(db.String(1000))
-    post=db.column(db.String(1000000))
+    title=db.Column(db.String(10000))
+    summary=db.Column(db.String(10000))
+    post=db.Column(db.String(10000))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    comments = db.relationship('Comments',backref='comment',lazy="dynamic")
+    comments_id = db.relationship('Comments',backref='comm',lazy="dynamic")
 
 class Comments(UserMixin,db.Model):
     __tablename__ = 'comments'
+
     id =db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.String(10000))
     blog_id=db.Column(db.Integer,db.ForeignKey('blogposts.id'))
 
-class subscribers(UserMixin,db.Model):
+class Subscribers(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String(255))
     username = db.Column(db.String(255))
-    comment = db.relationship('Comments',backref='comment',lazy="dynamic")
+   
