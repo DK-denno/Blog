@@ -13,10 +13,12 @@
 <div class="col-md-5" >
     {% for comm in comm %}
         {{comm.comment}}
-        {{comm.username}}       
+        {{comm.username}}
+       
     {% endfor %}
 </div>
 <div class='col-md-5' style="margin-left: 200px; ">
+    Leave a comment:
 {{ wtf.quick_form(comment) }}
 </div>
 {% endblock %}

@@ -21,3 +21,12 @@ class Comment(FlaskForm):
 
 class Delete(FlaskForm): 
     submit=SubmitField("DEL")
+
+class recovery(FlaskForm):
+    email=StringField('Enter your last used email',validators=Required())
+    submit=SubmitField('Submit')
+
+class new_password(FlaskForm):
+    Password = PasswordField('New password',validators=[Required(), EqualTo('password2',message = 'Passwords must match')])    
+    password2 = PasswordField('Confirm Password',validators = [Required()])
+    

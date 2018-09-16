@@ -1,8 +1,8 @@
 from . import main
 from .. import db,photos
-from flask import render_template,url_for,redirect,request
+from flask import render_template,url_for,redirect,request,flash
 from ..models import User,Subscribers,Blogposts,Comments
-from .forms import Subscribe,Blog,Comment,Delete
+from .forms import Subscribe,Blog,Comment,Delete,recovery,new_password
 from ..email import mail_message
 from flask_login import login_required
 
@@ -42,12 +42,23 @@ def full_blog(id):
         db.session.commit()
     commnents = Comments.query.filter_by(blog_id=id)
     return render_template('fullblog.html',comment=commenting,comm=commnents,full_blog=full_blog)
-@main.route('/delete/<id>')
-def delete(id):
-    deletee = Delete()
-    if deletee.validate_on_submit():
-        comment=CComments.quey.filter_by(id=id)
-        db.session.delete(comment)
-        db.session.commit()
-    return render_template('delete.html',delete=deletee,comments=comment)    
-
+# @main.route('/delete/<id>')
+# def delete(id):
+#     deletee = Delete()
+#     if deletee.validate_on_submit():
+#         comment=Comments.query.filter_by(id=id)
+#         db.session.delete(comment)
+#         db.session.commit()
+#         return redirect(url_for('main.index'))
+#     comment=Comments.query.filter_by(id=id)
+#     return render_template('delete.html',delete=deletee,comments=comment)    
+   
+@main.route('/recovery')
+def recover():
+    recovery=recovery
+    recovery_pass=new_password()
+    if recovery.validate_on_submit():
+        admin = User.query.filter_by(email=recovery.email.data)
+        if admin is not None:
+          return redirect(url_for('main.new_pass'))
+    return render_template('recovery.html',recovery=recovery)
