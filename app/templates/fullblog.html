@@ -13,11 +13,7 @@
 <div class="col-md-5" >
     {% for comm in comm %}
         {{comm.comment}}
-        {{comm.username}}
-        {% if current_user.is_authenticated %}
-        {{wtf.quick_form(delete)}}
-        {% endif %}
-       
+        {{comm.username}}       
     {% endfor %}
 </div>
 <div class='col-md-5' style="margin-left: 200px; ">
