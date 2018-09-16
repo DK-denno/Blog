@@ -32,7 +32,8 @@ def post():
 def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
     commenting = Comment()
-    delete = Delete()
+  
+
 
     if commenting.validate_on_submit():
         comm = Comments(comment=commenting.comment.data,blog_id=id,username=commenting.username.data)
@@ -40,4 +41,13 @@ def full_blog(id):
         db.session.add(comm)
         db.session.commit()
     commnents = Comments.query.filter_by(blog_id=id)
-    return render_template('fullblog.html',delete=delete,comment=commenting,comm=commnents,full_blog=full_blog)
+    return render_template('fullblog.html',comment=commenting,comm=commnents,full_blog=full_blog)
+@main.route('/delete/<id>')
+def delete(id):
+    deletee = Delete()
+    if deletee.validate_on_submit():
+        comment=CComments.quey.filter_by(id=id)
+        db.session.delete(comment)
+        db.session.commit()
+    return render_template('delete.html',delete=deletee,comments=comment)    
+
