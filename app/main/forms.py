@@ -11,7 +11,7 @@ class Subscribe(FlaskForm):
 class Blog(FlaskForm):
     title = StringField('TITLE',validators=[Required()])
     summary = StringField('SUMMARY',validators=[Required()])
-    post = StringField('BLOG',validators=[Required()])
+    post = TextAreaField('BLOG',validators=[Required()])
     submit = SubmitField('POST')
  
 class Comment(FlaskForm):
@@ -22,11 +22,8 @@ class Comment(FlaskForm):
 class Delete(FlaskForm): 
     submit=SubmitField("DEL")
 
-class recovery(FlaskForm):
-    email=StringField('Enter your last used email',validators=Required())
-    submit=SubmitField('Submit')
-
-class new_password(FlaskForm):
-    Password = PasswordField('New password',validators=[Required(), EqualTo('password2',message = 'Passwords must match')])    
+class Recovery(FlaskForm):
+    email = StringField('Enter you last email',validators=[Required(),Email()])
+    password = PasswordField('New password',validators=[Required(), EqualTo('password2',message = 'Passwords must match')])    
     password2 = PasswordField('Confirm Password',validators = [Required()])
-    
+    submit=SubmitField('Submit')

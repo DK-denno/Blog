@@ -1,43 +1,44 @@
-{% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
-
-{% block content %}
+{% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf %} {% block content %}
 <div class="container-fluid" style="width:200;">
-    <div class='row'>
-          {% for post in bloggs %}
-        <div class="col-md-4">
-        <div class="card ml-5" style=" width: 200px; text-align: center">
-            <h3 class="card-header" style="background-color: black; color: white;">{{post.title}} </h3>
-            <div class="card-body">
-              <h6 class="card-subtitle text-muted">Article by:DK-denno</h6>
-            </div>
-            
-            <div class="card-body">
-              <p class="card-text">{{post.summary}}</p>
-           
+  <div class='row'>
+    {% for post in bloggs %}
+    <div class="col-md-4">
+      <div style="display: inline-block; ">
+        <div class="card ml-5" style=" width: 350px; text-align: center">
+          <h3 class="card-header" style="background-color: black; color: white;">{{post.title}} </h3>
+          <div class="card-body">
+            <h6 class="card-subtitle text-muted">Article by:DK-denno</h6>
+          </div>
+
+          <div class="card-body">
+            <p class="card-text">{{post.summary}}</p>
+
             <div class="card-body">
               <a href="/post/{{post.id}}" class="card-link">Full article</a>
             </div>
             <div class="card-footer text-muted">
-              2 days ago
+              {{post.posted}}
             </div>
           </div>
-         
+
+        </div>
+      </div>
     </div>
+    <br>
+    <br>
+
     {% endfor %}
-
-    <div class="col-md-5" style="">
-        {{ wtf.quick_form(subscribe) }}
+  </div>
+  <br>
+  <br>
+  <br>
+<div class="row" style="margin-left: 300px;">
+  <div class="col-md-5" style="">
+      {{ wtf.quick_form(subscribe) }}
     </div>
-</div>
-
-
-
-</div>
+  </div>
 
 
 
 
-
-
-{% endblock %}
+  {% endblock %}

@@ -2,7 +2,7 @@ from . import main
 from .. import db,photos
 from flask import render_template,url_for,redirect,request,flash
 from ..models import User,Subscribers,Blogposts,Comments
-from .forms import Subscribe,Blog,Comment,Delete,recovery,new_password
+from .forms import Subscribe,Blog,Comment,Delete,Recovery
 from ..email import mail_message
 from flask_login import login_required
 
@@ -25,6 +25,7 @@ def post():
         blogs = Blogposts(title=blog.title.data,summary=blog.summary.data,post=blog.post.data)
         db.session.add(blogs)
         db.session.commit()
+        return redirect(url_for('main.index'))
         
     return render_template('blogform.html',blog=blog)
 
@@ -53,12 +54,15 @@ def full_blog(id):
 #     comment=Comments.query.filter_by(id=id)
 #     return render_template('delete.html',delete=deletee,comments=comment)    
    
-@main.route('/recovery')
+@main.route('/recovery',methods=['GET','POST'])
 def recover():
-    recovery=recovery
-    recovery_pass=new_password()
+    recovery=Recovery()
+
     if recovery.validate_on_submit():
         admin = User.query.filter_by(email=recovery.email.data)
         if admin is not None:
-          return redirect(url_for('main.new_pass'))
+            admin.password_secure=recovery.password.data
+        else:
+            flash('Sorry that email is not recognised')
+        return redirect(url_for('auth.login'))
     return render_template('recovery.html',recovery=recovery)

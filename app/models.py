@@ -32,6 +32,7 @@ class Blogposts(UserMixin,db.Model):
     title=db.Column(db.String(10000))
     summary=db.Column(db.String(10000))
     post=db.Column(db.String(10000))
+    posted=db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments_id = db.relationship('Comments',backref='comm',lazy="dynamic")
 
