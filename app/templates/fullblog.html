@@ -2,32 +2,58 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="container">
-<div class="col-md-5" >
+<div style="background-color: burlywood;">
+    <div class="container">
+    <div class="row">
+<div class="col-md-5" style="background-color: blanchedalmond; width:1000px;" >
     {% for post in full_blog %}
-        <h1>{{post.title}}</h1>
-        {{post.summary}}
+        <h1 style="background-color:greenyellow;">  {{post.title}}  </h1>
         {{post.post}}
-        {{post.username}}
+        
     {% endfor %}
 </div>
-<div class="col-md-5" >
-        <br>
-        <br>
-        <br>
+<div class="col-md-7">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="https://cdn.plixs.com/uploads/thumbnail/psx-20180708-114852-11541531044290b5khvcl35r.jpg" alt="First slide" width="800" height="700">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="https://media.istockphoto.com/photos/hands-touching-circle-global-network-connection-omni-channel-or-picture-id520940098?k=6&m=520940098&s=612x612&w=0&h=5iKlAFgTSqv4JsPYuilI0u8R8L8B04jZ9jFMiPbjMyE=" alt="Second slide" width="800" height="700">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="https://globintel.com/wp-content/uploads/2018/05/Blockchain-technology-Explained-765x405.jpg" alt="Third slide"  width="800" height="700">
+                  </div>
+                </div>
+              </div>
+</div>
+</div>
+
+
     <h1><b>COMMENTS:</b></h1>
+<div class="row">
     {% for comm in comm %}
-    
-        <em>Username:</em>{{comm.username}}   <br>
-        <em>Comment:</em>{{comm.comment}}<br>
-       
-       
+    <div class="col-md-3">
+    <div class="card text-white bg-secondary ml-3" style="max-width: 20rem;">
+            <div class="card-header"><em>Username:</em>{{comm.username}}   <br></div>
+            <div class="card-body">
+              
+              <p class="card-text"><em>Comment:</em>{{comm.comment}}<br></p>
+            </div>
+        </div>
+        <br>
+        </div>
     {% endfor %}
 </div>
-</div>
-<div class='col-md-5' style="margin-left: 200px; ">
+
+<div class="row" style="padding: 50px; background-image: url('https://cdn.plixs.com/uploads/thumbnail/psx-20180708-114852-11541531044290b5khvcl35r.jpg');background-size: cover;background-repeat: no-repeat; ">
+<div class='col-md-5' style="color:whitesmoke; margin-left: 200px; ">
     Leave a comment:
 {{ wtf.quick_form(comment) }}
+</div>
+</div>
+<br>
+<br>
 </div>
 
 {% endblock %}
