@@ -36,6 +36,11 @@ class Blogposts(UserMixin,db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments_id = db.relationship('Comments',backref='comm',lazy="dynamic")
 
+    @classmethod
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Comments(UserMixin,db.Model):
     __tablename__ = 'comments'
 
@@ -44,6 +49,11 @@ class Comments(UserMixin,db.Model):
     username=db.Column(db.String(255))
     blog_id=db.Column(db.Integer,db.ForeignKey('blogposts.id'))
 
+    @classmethod
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()
+        
 class Subscribers(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String(255))

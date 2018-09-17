@@ -1,5 +1,11 @@
 {% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf %} {% block content %}
-<div class="container-fluid" style="width:200;">
+<div style="padding:300px; background-image: url('https://cdn.plixs.com/uploads/preview/notebook-coffee-table-work-14871534504222rqpq4wee2z.jpg');background-repeat: no-repeat; background-size: cover;">
+
+  </div>
+<div class="container-fluid" style="width:200; background-color: blanchedalmond">
+ 
+  <br>
+  <br>
   <div class='row'>
     {% for post in bloggs %}
     <div class="col-md-4">
@@ -17,7 +23,7 @@
               <a href="/post/{{post.id}}" class="card-link">Full article</a>
             </div>
             <div class="card-footer text-muted">
-              {{post.posted}}
+             posted on: {{post.posted}}
             </div>
           </div>
 
@@ -32,11 +38,15 @@
   <br>
   <br>
   <br>
-<div class="row" style="margin-left: 300px;">
-  <div class="col-md-5" style="">
+  <div class="container">
+<div class="row" style=" background-image: url('https://media0.giphy.com/media/3GclB7VNCzCuY/200.webp');padding: 50px; background-repeat: no-repeat; background-size: cover;">
+ <h2 style="margin-left: 200px;
+  color:white;">Why get updates late <br> while all you can do is subscribe!!!</h2>
+  <div class="col-md-5" style="margin-left: 300px;">
       {{ wtf.quick_form(subscribe) }}
     </div>
   </div>
+</div>
 
 
 

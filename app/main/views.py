@@ -13,7 +13,7 @@ def index():
         subscriber = Subscribers(email=subscribe.email.data,username=subscribe.username.data)
         db.session.add(subscriber)
         db.session.commit()
-        mail_message("Welcome","email/subscription",subscriber.email,subscriber=subscriber)
+        mail_message("Welcome","email/welcome_user",subscriber.email,subscriber=subscriber)
     bloggs=Blogposts.query.all()
     return render_template('index.html',subscribe=subscribe,bloggs=bloggs)
 
@@ -25,6 +25,9 @@ def post():
         blogs = Blogposts(title=blog.title.data,summary=blog.summary.data,post=blog.post.data)
         db.session.add(blogs)
         db.session.commit()
+        subscriber=Subscribers.query.all()
+        for email in subscriber:
+            mail_message("Hey new blog posted","email/subscription",email.email,subscriber=subscriber)
         return redirect(url_for('main.index'))
         
     return render_template('blogform.html',blog=blog)
@@ -33,7 +36,7 @@ def post():
 def full_blog(id):
     full_blog = Blogposts.query.filter_by(id=id)
     commenting = Comment()
-  
+
 
 
     if commenting.validate_on_submit():
@@ -66,3 +69,9 @@ def recover():
             flash('Sorry that email is not recognised')
         return redirect(url_for('auth.login'))
     return render_template('recovery.html',recovery=recovery)
+
+@main.route('/delete/<id>')
+def delete_comment(id):
+    comment = Comments.query.filter_by(id=id).first()
+    comment.delete_comment()
+    return redirect(url_for('main.index'))
